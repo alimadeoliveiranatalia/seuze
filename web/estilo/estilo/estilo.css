@@ -1,0 +1,12 @@
+.titulo{
+    background: purple;
+    border: 3px solid white;
+    color: white;
+    text-align: center;
+}
+.img{
+    border: 3px solid black;
+}
+body{
+    background: goldenrod;
+}
