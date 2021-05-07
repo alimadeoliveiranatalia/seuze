@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel app\models\DespesaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Despesas';
+$this->title = 'Contas à Pagar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="despesa-index">
