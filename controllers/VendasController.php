@@ -1,13 +1,13 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\Vendas;
 use app\models\VendasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
+use app\models\Cliente;
 
 /**
  * VendasController implements the CRUD actions for Vendas model.
@@ -17,11 +17,12 @@ class VendasController extends Controller
     /**
      * {@inheritdoc}
      */
+    public $layout = 'pdv/main.php';
     public function behaviors()
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -123,5 +124,35 @@ class VendasController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionClienteList($q=null,$id=null){
+        
+        \yii::$app->response->format = yii\web\response::FORMAT_JSON;
+        $out = ['result'=>['id'=>'','nome'=>'','cpf'=>'']];
+        if(!is_null($q)){
+            $query = new Query;
+            $query->select('id_cliente,no_cliente')->from('cliente');
+            $comamder = $query->createCommand();
+            $dados = $comamder->queryAll();
+            $out['results'] = array_values($dados);
+        }
+        elseif($id>0){
+            $cliente = Cliente::findOne($id);
+            $out['result'] = ['id'=>$id, 'nome'>$cliente->no_cliente];
+        }
+        return $out;
+    }
+    public function actionProdutoList($prod = null, $id = null){
+        \yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        $out = ['result'=>['id'=>'','produto'=>'','valor'=>'','quantidade'=>'']],
+        if(!is_null($prod)){
+            $query = new Query;
+            $query->select('id_produto,no_produto,vr_venda')->from('produto')
+            ->where(['like','cod_barra',strtoupper($prod)])->andWhere(['=','ic_excluido',false]);
+            $comamder = $query->createCommand();
+            $dados = $comamder->queryAll();
+            $out['result'] = array_values($dados);
+            return $out;
+        }
     }
 }

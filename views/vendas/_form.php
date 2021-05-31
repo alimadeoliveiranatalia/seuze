@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="vendas-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    
 
     <?= $form->field($model, 'id_usuario_fk')->textInput() ?>
 
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'vr_total')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ic_form_pg')->textInput() ?>
+    
 
     <?= $form->field($model, 'vr_desconto')->textInput(['maxlength' => true]) ?>
 
@@ -36,6 +36,6 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    
 
 </div>

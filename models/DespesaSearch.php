@@ -76,10 +76,17 @@ class DespesaSearch extends Despesa
             'ic_forma_pg' => $this->ic_forma_pg,
             'ic_repeticao' => $this->ic_repeticao,
         ]);
+        if (isset($this->busca)){
+            if(str_contains($this->busca,'/')){
+                $date = str_replace('/','-',$this->busca);
+                $this->busca = date('Y-m-d',strtotime($date));
+                $this->dt_vencimento = $this->busca;
+            }
+        }
 
-        $query->andFilterWhere(['like', 'no_descricao', $this->no_descricao])
-            ->andFilterWhere(['like', 'no_recebedor', $this->no_recebedor])
-            ->andFilterWhere(['like', 'de_observacao', $this->de_observacao]);
+        $query->orFilterWhere(['like', 'no_descricao', $this->busca])
+            ->orFilterWhere(['like', 'no_recebedor', $this->busca])
+            ->orFilterWhere(['like', 'dt_vencimento', $this->dt_vencimento]);
 
         return $dataProvider;
     }

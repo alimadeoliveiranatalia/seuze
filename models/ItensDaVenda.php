@@ -36,8 +36,8 @@ class ItensDaVenda extends \yii\db\ActiveRecord
             [['id_venda_fk', 'id_produto_fk', 'vr_unit_prod', 'nu_quantidade'], 'required'],
             [['id_venda_fk', 'id_produto_fk', 'nu_quantidade', 'ic_excluido'], 'integer'],
             [['vr_unit_prod'], 'number'],
-            [['id_venda_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Vendas::className(), 'targetAttribute' => ['id_venda_fk' => 'id_venda']],
-            [['id_produto_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['id_produto_fk' => 'id_produto']],
+            [['id_venda_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Vendas::class, 'targetAttribute' => ['id_venda_fk' => 'id_venda']],
+            [['id_produto_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_produto_fk' => 'id_produto']],
         ];
     }
 
@@ -63,7 +63,7 @@ class ItensDaVenda extends \yii\db\ActiveRecord
      */
     public function getVendaFk()
     {
-        return $this->hasOne(Vendas::className(), ['id_venda' => 'id_venda_fk']);
+        return $this->hasOne(Vendas::class, ['id_venda' => 'id_venda_fk']);
     }
 
     /**
@@ -73,6 +73,6 @@ class ItensDaVenda extends \yii\db\ActiveRecord
      */
     public function getProdutoFk()
     {
-        return $this->hasOne(Produto::className(), ['id_produto' => 'id_produto_fk']);
+        return $this->hasOne(Produto::class, ['id_produto' => 'id_produto_fk']);
     }
 }

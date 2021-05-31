@@ -43,8 +43,8 @@ class Vendas extends \yii\db\ActiveRecord
             [['id_usuario_fk', 'ic_form_pg', 'ic_situacao_venda', 'id_cliente_fk', 'ic_excluido'], 'integer'],
             [['dt_login', 'dt_venda'], 'safe'],
             [['vr_total', 'vr_desconto', 'vr_acrescimo'], 'number'],
-            [['id_usuario_fk'], 'exist', 'skipOnError' => true, 'targetClass' => UsuarioSistema::className(), 'targetAttribute' => ['id_usuario_fk' => 'id_usuario']],
-            [['id_cliente_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['id_cliente_fk' => 'id_cliente']],
+            [['id_usuario_fk'], 'exist', 'skipOnError' => true, 'targetClass' => UsuarioSistema::class, 'targetAttribute' => ['id_usuario_fk' => 'id_usuario']],
+            [['id_cliente_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::class, 'targetAttribute' => ['id_cliente_fk' => 'id_cliente']],
         ];
     }
 
@@ -75,7 +75,7 @@ class Vendas extends \yii\db\ActiveRecord
      */
     public function getItensDaVendas()
     {
-        return $this->hasMany(ItensDaVenda::className(), ['id_venda_fk' => 'id_venda']);
+        return $this->hasMany(ItensDaVenda::class, ['id_venda_fk' => 'id_venda']);
     }
 
     /**
@@ -85,7 +85,7 @@ class Vendas extends \yii\db\ActiveRecord
      */
     public function getUsuarioFk()
     {
-        return $this->hasOne(UsuarioSistema::className(), ['id_usuario' => 'id_usuario_fk']);
+        return $this->hasOne(UsuarioSistema::class, ['id_usuario' => 'id_usuario_fk']);
     }
 
     /**
@@ -95,6 +95,13 @@ class Vendas extends \yii\db\ActiveRecord
      */
     public function getClienteFk()
     {
-        return $this->hasOne(Cliente::className(), ['id_cliente' => 'id_cliente_fk']);
+        return $this->hasOne(Cliente::class, ['id_cliente' => 'id_cliente_fk']);
+    }
+    public function getPagamento(){
+        return Lookup::items('formapag');
+    }
+    public function beforeSave($insert)
+    {
+        
     }
 }

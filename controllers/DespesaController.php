@@ -38,6 +38,7 @@ class DespesaController extends Controller
     {
         $searchModel = new DespesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $despesasVencidas = Despesa::find()->where(['dt_vencimento'=>'CURRENT_DATE']);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

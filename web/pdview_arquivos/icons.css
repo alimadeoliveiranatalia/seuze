@@ -1,0 +1,85 @@
+.icon {
+	background: url("/images/icons.png");
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+}
+
+.icon.mini {
+	height: 10px;
+	width: 10px;
+}
+
+
+.icon.star {
+	background-position: -1px -1px;
+}
+
+.icon.alert {
+	background-position: -23px -1px;
+}
+
+.icon.sac {
+	background-position: -47px -1px;
+}
+
+.icon.close {
+	background-position: -70px -1px;
+}
+
+.icon.config {
+	background-position: -92px -2px;
+}
+
+.icon.home {
+	background-position: -117px -6px;
+}
+
+.icon.more {
+	background-position: 0px -21px;
+}
+
+.icon.less {
+	background-position: -20px -20px;
+}
+
+.icon.arrow {
+	background-position: -41px -21px;
+}
+
+.icon.play {
+	background-position: -59px -21px;
+}
+
+.icon.service {
+	background-position: -121px -41px;
+}
+
+.icon.edit {
+	background-position: -41px -41px;
+}
+
+.icon.bill {
+	background-position: -101px -41px;
+}
+
+.icon.credit {
+	background-position: -81px -41px;
+}
+
+.icon.share{
+	background-position: -1px -41px;
+}
+
+.icon.terms{
+	background-position: -121px -41px;
+}
+
+.icon.suport{
+	background-position: -61px -41px;
+}
+
+.icon.version{
+	background-position: -21px -41px;
+}
