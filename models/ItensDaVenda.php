@@ -33,7 +33,7 @@ class ItensDaVenda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_venda_fk', 'id_produto_fk', 'vr_unit_prod', 'nu_quantidade'], 'required'],
+            [['id_venda_fk', 'id_produto_fk', 'vr_unit_prod','total', 'nu_quantidade'], 'required'],
             [['id_venda_fk', 'id_produto_fk', 'nu_quantidade', 'ic_excluido'], 'integer'],
             [['vr_unit_prod'], 'number'],
             [['id_venda_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Vendas::class, 'targetAttribute' => ['id_venda_fk' => 'id_venda']],
@@ -51,6 +51,7 @@ class ItensDaVenda extends \yii\db\ActiveRecord
             'id_venda_fk' => 'Id Venda Fk',
             'id_produto_fk' => 'Id Produto Fk',
             'vr_unit_prod' => 'Vr Unit Prod',
+            'total' => 'Total',
             'nu_quantidade' => 'Nu Quantidade',
             'ic_excluido' => 'Ic Excluido',
         ];

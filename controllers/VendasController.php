@@ -8,6 +8,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use app\models\Cliente;
+use app\models\Produto;
+use app\models\ItensDaVenda;
 
 /**
  * VendasController implements the CRUD actions for Vendas model.
@@ -66,13 +68,20 @@ class VendasController extends Controller
     public function actionCreate()
     {
         $model = new Vendas();
+        $model->dt_venda = date('d-m-Y');
+        $itens = new ItensDaVenda();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_venda]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->id_usuario_fk = \Yii::$app->user->id;
+            $model->save(false);
+            if(isset($_POST['ItensDaVenda'])){
+                $itens->load(yii::$app->post());
+            }
+            return $this->redirect(['index']);
         }
-
         return $this->render('create', [
             'model' => $model,
+            'itens' => $itens
         ]);
     }
 
@@ -85,14 +94,29 @@ class VendasController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_venda]);
+        $venda = Vendas::findOne($id);
+        if(!$venda){
+            throw new NotFoundHttpException('Venda não encontrada.');
         }
+        $itens = ItensDaVenda::findOne($venda->id_venda_fk);
+            if(!$itens){
+                throw new NotFoundHttpException('Itens da venda não encontrado');
+            }
+        $venda->scenario = 'update';
+        $itens->scenario = 'update';
 
+        if ($venda->load(Yii::$app->request->post()) && $itens->load(Yii::$app->request->post())) {
+            $isValid = $venda->validate();
+            $isValid = $itens->validate() && $isValid;
+            if($isValid){
+                $venda->save(false);
+                $itens->save(false);
+                return $this->redirect(['vendas/_pdv','id'=>$id]);
+            }
+        }
         return $this->render('update', [
-            'model' => $model,
+            'venda' => $venda,
+            'itens' => $itens
         ]);
     }
 
@@ -128,7 +152,7 @@ class VendasController extends Controller
     public function actionClienteList($q=null,$id=null){
         
         \yii::$app->response->format = yii\web\response::FORMAT_JSON;
-        $out = ['result'=>['id'=>'','nome'=>'','cpf'=>'']];
+        $out = ['results'=>['id'=>'','nome'=>'','cpf'=>'']];
         if(!is_null($q)){
             $query = new Query;
             $query->select('id_cliente,no_cliente')->from('cliente');
@@ -138,21 +162,29 @@ class VendasController extends Controller
         }
         elseif($id>0){
             $cliente = Cliente::findOne($id);
-            $out['result'] = ['id'=>$id, 'nome'>$cliente->no_cliente];
+            $out['results'] = ['id'=>$id, 'nome'>$cliente->no_cliente];
         }
         return $out;
     }
     public function actionProdutoList($prod = null, $id = null){
         \yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-        $out = ['result'=>['id'=>'','produto'=>'','valor'=>'','quantidade'=>'']],
+        $out = ['results'=>['id'=>'','produto'=>'','valor'=>'','quantidade'=>'']];
         if(!is_null($prod)){
             $query = new Query;
             $query->select('id_produto,no_produto,vr_venda')->from('produto')
             ->where(['like','cod_barra',strtoupper($prod)])->andWhere(['=','ic_excluido',false]);
             $comamder = $query->createCommand();
             $dados = $comamder->queryAll();
-            $out['result'] = array_values($dados);
+            $out['results'] = array_values($dados);
             return $out;
         }
+        elseif($id>0){
+            $produto = Produto::findOne($id);
+            $out['results'] = ['id'=>$id, 'produto'=>$produto->no_produto, 'valor'=>$produto->vr_venda, 'quant'=>$produto->nu_estoque_atual];
+            return $out;
+        }
+        $model = new Produto();
+        $item = new ItensDaVenda();
+        return $this->render('_itens',['model'=>$model,'item'=>$item]);
     }
 }

@@ -14,11 +14,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_venda_fk')->textInput() ?>
 
-    <?= $form->field($model, 'id_produto_fk')->textInput() ?>
+    
 
-    <?= $form->field($model, 'vr_unit_prod')->textInput(['maxlength' => true]) ?>
+    
 
-    <?= $form->field($model, 'nu_quantidade')->textInput() ?>
+    
 
     <?= $form->field($model, 'ic_excluido')->textInput() ?>
 

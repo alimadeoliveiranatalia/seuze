@@ -5,52 +5,59 @@ use yii\widgets\ActiveForm;
 <div class="card card-default">		
 	<div class="card-header">			
 		<?=Html::img('pdview_arquivos/logo_topo_vhsys.png',['class'=>'left'])?>                
-		<?= Html::a('<span>Operador: </span><span id="nome-operador">silva123</span>','usuario-sistema/index',['class'=>'btn-menu right'])?>       
+		<?= Html::a('<span>Operador: </span><span><?=$model->usuarioFk->no_usuario?></span>','usuario-sistema/index',['class'=>'btn-menu right'])?>       
 	</div><!--./car-header-->
-	
 
-	<div id="header">
-		<div class="wrapper-fluid">
-			
-			<div style="margin-left: 145px;">
-				
-				<table onkeypress="if(event.keyCode==13){AdicionarLinha(''); ScrollDown();}" border="0" cellpadding="10px" width="100%">
-					<tbody>
-						<tr>
-						<td width="80">
-							<label for="qtde_produto">Quantidade </label>
-							<input name="qtde_produto" id="qtde_produto" value="1" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
-						</td>
-						<td>
-							<label for="desc_produto">Produto </label>
-							<input autocomplete="off" name="desc_produto" id="desc_produto" onkeypress="retirarAcento(this);LimpaProduto(event);" class="input-block" type="text">
-                            <input name="id_produto" id="id_produto" value="" type="hidden">
-                            <input name="cod_produto" id="cod_produto" value="" class="input-block" type="hidden">
-                            <input name="listapreco" id="listapreco" value="" type="hidden">
-						</td>
-						<td width="120">
-							<label for="valor_unit_produto">Valor Unitário </label>
-							<input name="valor_unit_produto" id="valor_unit_produto" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
-						</td>
-						<td width="120">
-							<label for="valor_total_produto">Valor Total </label>
-							<input name="valor_total_produto" id="valor_total_produto" readonly="readonly" class="totais_pedido input-block" type="text">
-                            <input name="QtdeProdutos" id="QtdeProdutos" value="1" type="hidden">
-						</td>
-						<td width="140">
-							<button class="button large green" onclick="AdicionarLinha(''); ScrollDown();">Incluir</button>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-				
-			</div>
-			<div class="clr"></div>
-		</div>
+	<div>
+    	<div class="card-header">
+    	    <div class="card-tools">
+    	        	<?php $form = ActiveForm::begin() ?>
+    	        <div id="header">
+					<div class="wrapper-fluid">
+						<div style="margin-left: 145px;">
+							<table onkeypress="if(event.keyCode==13){AdicionarLinha(''); ScrollDown();}" border="0" cellpadding="10px" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<label for="desc_produto">Produto </label>
+											<input autocomplete="off" name="desc_produto" id="desc_produto" onkeypress="retirarAcento(this);LimpaProduto(event);" class="input-block" type="text">
+											<?= $form->field($itens, 'id_produto_fk')->textInput() ?>
+    	    		                	    <input name="id_produto" id="id_produto" value="" type="hidden">
+    	    		                	    <input name="cod_produto" id="cod_produto" value="" class="input-block" type="hidden">
+    	    		                	    <input name="listapreco" id="listapreco" value="" type="hidden">
+										</td>
+										<td width="80">
+											<label for="qtde_produto">Quantidade </label>
+											<input name="qtde_produto" id="qtde_produto" value="1" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
+											<?= $form->field($itens, 'nu_quantidade')->textInput() ?>
+										</td>						
+										<td width="120">
+											<label for="valor_unit_produto">Valor Unitário </label>
+											<input name="valor_unit_produto" id="valor_unit_produto" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
+											<?= $form->field($itens, 'vr_unit_prod')->textInput(['maxlength' => true]) ?>
+										</td>
+										<td width="120">
+											<label for="valor_total_produto">Valor Total </label>
+											<input name="valor_total_produto" id="valor_total_produto" readonly="readonly" class="totais_pedido input-block" type="text">
+    	    		                	    <input name="QtdeProdutos" id="QtdeProdutos" value="1" type="hidden">
+											<?= $form->field($itens, 'total')->textInput()?>
+										</td>
+										<td width="140">
+											<button class="button large green" onclick="AdicionarLinha(''); ScrollDown();">Incluir</button>
+											<?= Html::submitButton('Incluir',['class'=>'button large green'])?>
+										</td>
+									</tr>
+								</tbody>
+							</table>				
+						</div>			
+					</div>
+				</div>
+    	    </div><!--./card-tools-->
+    	</div><!--./card-header-->
 	</div>
+
 	
-	<div id="main" class="wrapper-fluid">
-		
+	<div id="main" class="wrapper-fluid">		
 		<div class="box">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<tbody><tr>
@@ -107,7 +114,7 @@ use yii\widgets\ActiveForm;
 	</div>
 
 	<div class="card-footer">
-	<?php $form = ActiveForm::begin(); ?>
+
 		<table border="0" cellpadding="10px" cellspacing="0" width="100%">
 			<tbody><tr>
 				<td class="subtotal" width="280">SubTotal: <span id="subtotal_div">R$ 100,00</span><input name="valor_total_produtos" id="valor_total_produtos" value="100" type="hidden"></td>
@@ -126,39 +133,48 @@ use yii\widgets\ActiveForm;
 			</tr>
 		</tbody></table>
 	</div><!--./card-footer-->
-<input name="ok" id="ok" value="" type="hidden">
-<input name="erro" id="erro" value="" type="hidden">
-<input name="valebrinde" id="valebrinde" value="" type="hidden">
-<input name="operador_atual" id="operador_atual" value="43860" type="hidden">
-<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
-<div id="Layer_Imprimir"></div>
-<?php ActiveForm::end(); ?>
-<script type="text/javascript">
-	window.setInterval("BuscarInfo()", 180000);
-	window.setInterval("xajax_PedidosPendentes()", 60000);
-	Iniciar();
-</script>
+	<input name="ok" id="ok" value="" type="hidden">
+	<input name="erro" id="erro" value="" type="hidden">
+	<input name="valebrinde" id="valebrinde" value="" type="hidden">
+	<input name="operador_atual" id="operador_atual" value="43860" type="hidden">
+	<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
+	<div id="Layer_Imprimir"></div>
+	<?php ActiveForm::end(); ?>
+	<script type="text/javascript">
+		window.setInterval("BuscarInfo()", 180000);
+		window.setInterval("xajax_PedidosPendentes()", 60000);
+		Iniciar();
+	</script>
 
 
-<div id="qtip-rcontainer"></div><div style="display: none;" id="cboxOverlay"></div>
-<div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox">
-	<div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div>
-	<div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div>
-</div>
-<div style="clear: left;"><div style="float: left;" id="cboxMiddleLeft"></div>
-<div style="float: left;" id="cboxContent"><div style="float: left;" id="cboxTitle"></div>
-	<div style="float: left;" id="cboxCurrent"></div>
-	<button id="cboxPrevious" type="button"></button>
-	<button id="cboxNext" type="button"></button>
-	<button id="cboxSlideshow"></button>
-	<div style="float: left;" id="cboxLoadingOverlay"></div>
-	<div style="float: left;" id="cboxLoadingGraphic"></div>
-</div>
-<div style="float: left;" id="cboxMiddleRight"></div></div>
-<div style="clear: left;">
-	<div style="float: left;" id="cboxBottomLeft"></div>
-	<div style="float: left;" id="cboxBottomCenter"></div>
-	<div style="float: left;" id="cboxBottomRight"></div>
-</div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
-</div>
+	<div id="qtip-rcontainer"></div>
+	<div style="display: none;" id="cboxOverlay"></div>
+	<div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox">
+		<div id="cboxWrapper">
+			<div>
+				<div style="float: left;" id="cboxTopLeft"></div>
+				<div style="float: left;" id="cboxTopCenter"></div>
+				<div style="float: left;" id="cboxTopRight"></div>
+			</div>
+			<div style="clear: left;">
+				<div style="float: left;" id="cboxMiddleLeft"></div>
+				<div style="float: left;" id="cboxContent">
+					<div style="float: left;" id="cboxTitle"></div>
+					<div style="float: left;" id="cboxCurrent"></div>
+					<button id="cboxPrevious" type="button"></button>
+					<button id="cboxNext" type="button"></button>
+					<button id="cboxSlideshow"></button>
+					<div style="float: left;" id="cboxLoadingOverlay"></div>
+					<div style="float: left;" id="cboxLoadingGraphic"></div>
+				</div>
+				<div style="float: left;" id="cboxMiddleRight"></div>
+			</div>
+			<div style="clear: left;">
+				<div style="float: left;" id="cboxBottomLeft"></div>
+				<div style="float: left;" id="cboxBottomCenter"></div>
+				<div style="float: left;" id="cboxBottomRight"></div>
+			</div>
+		</div>
+		<div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
+	</div>
 </div><!--./card card-default-->
