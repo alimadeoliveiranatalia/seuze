@@ -53,10 +53,10 @@ function SelecionarProduto(par)
 				if(DesFormataMoeda(valor_unitario) <= 0){ valor_unitario = listaPreco[par[0]][0]; }
 			}
 		
-		$("#id_produto").val(par[0]);
+		$("#itensdavenda-id_produto_fk").val(par[0]);
 		$("#cod_produto").val(par[7]);
 		$("#desc_produto").val(par[1]);
-		$("#valor_unit_produto").val(valor_unitario);
+		$("#itensdavenda-vr_unit_prod").val(valor_unitario);
 		CalculoProduto();
 		
 		//VERIFICA SE O PRODUTO PODE SER VENDIDO SEM ESTOQUE 
@@ -220,7 +220,7 @@ function AdicionarLinha(Dados)
 	}
 function ExcluirLinha(Linha)
 	{
-		if(confirm('Você tem certeza que deseja cancelar este item?'))
+		if(confirm('Vocï¿½ tem certeza que deseja cancelar este item?'))
 			{
 				var nro;
 				if(Linha == 'Limpar')
@@ -467,11 +467,11 @@ function SalvarBanco(Linha, id_banco, icone, nome_banco)
 	}
 function CalculoProduto()
 	{
-		var qtde = DesFormataMoeda($('#qtde_produto').val());
-		var valor_original = DesFormataMoeda($('#valor_unit_produto').val());
+		var qtde = DesFormataMoeda($('#itensdavenda-nu_quantidade').val());
+		var valor_original = DesFormataMoeda($('#itensdavenda-vr_unit_prod').val());
 		
 		valor_total = qtde * valor_original;
-		$('#valor_total_produto').val(ConverteMoeda(valor_total));
+		$('#itensdavenda-total').val(ConverteMoeda(valor_total));
 	}
 function CalculoTotal()
 	{
@@ -502,7 +502,7 @@ function Confirmar()
 			{
 				$.colorbox({
 					href:"FrenteCaixa.Confirmar.php?Venda="+$("#id_frente").val()+"&Valor="+$("#valor_total_produtos").val()+"&obs_pedido="+escape($("#obs_pedido").val())+"&id_operador="+$("#operador_atual").val()+"&nome_operador="+encodeURIComponent($("#nome_operador_atual").val()),
-					title:"CONFIRMAÇÃO DE PAGAMENTO",
+					title:"CONFIRMAï¿½ï¿½O DE PAGAMENTO",
 					height:"480px",
 					onComplete:function()
 						{
@@ -564,7 +564,7 @@ function ConfirmarPedido(Imprimir)
 			}
 		else
 			{
-				if(confirm('Você confirma o fechamento deste pedido?'))
+				if(confirm('Vocï¿½ confirma o fechamento deste pedido?'))
 					{
 						$("#salvar").attr("disabled", "disabled");
 						$("#salvarImprimir").attr("disabled", "disabled");
@@ -749,7 +749,7 @@ function Cancelar()
 	{
 		if($("#CaixaLivre").attr("class") != "caixaLivre" && $("#CaixaLivre").attr("class") != "")
 			{
-				if(confirm('Você tem certeza que deseja cancelar este pedido?'))
+				if(confirm('Vocï¿½ tem certeza que deseja cancelar este pedido?'))
 					{
 						$(".item").each(function() {
 							$(this).remove();
@@ -764,7 +764,7 @@ function ObterPedido(Pedido)
 	{
 		if(DesFormataMoeda($("#valor_total_produto").val()) > 0)
 			{
-				if(confirm('Você tem certeza que não deseja salvar este item?'))
+				if(confirm('Vocï¿½ tem certeza que nï¿½o deseja salvar este item?'))
 					{
 						xajax_ObterPedido(Pedido);
 					}
@@ -777,7 +777,7 @@ function ObterPedido(Pedido)
 	}
 function FecharJanela()
 	{
-		if(confirm('Você tem certeza que deseja fechar o PDV?'))
+		if(confirm('Vocï¿½ tem certeza que deseja fechar o PDV?'))
 			{
 				window.close();
 			}
@@ -785,7 +785,7 @@ function FecharJanela()
 function retirarAcento(objResp)
 	{  
 		var varString = new String(objResp.value);  
-		var stringAcentos = new String('àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ');  
+		var stringAcentos = new String('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');  
 		var stringSemAcento = new String('aaeouaoaeioucuAAEOUAOAEIOUCU');
 
 		var i = new Number();  

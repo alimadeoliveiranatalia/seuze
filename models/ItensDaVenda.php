@@ -49,10 +49,10 @@ class ItensDaVenda extends \yii\db\ActiveRecord
         return [
             'id_item_venda' => 'Id Item Venda',
             'id_venda_fk' => 'Id Venda Fk',
-            'id_produto_fk' => 'Id Produto Fk',
-            'vr_unit_prod' => 'Vr Unit Prod',
+            'id_produto_fk' => 'Cód. Produto',
+            'vr_unit_prod' => 'Preço',
             'total' => 'Total',
-            'nu_quantidade' => 'Nu Quantidade',
+            'nu_quantidade' => 'Quantidade',
             'ic_excluido' => 'Ic Excluido',
         ];
     }

@@ -36,12 +36,13 @@ class Vendas extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $busca;
     public function rules()
     {
         return [
             [['id_usuario_fk', 'dt_venda', 'vr_total', 'ic_form_pg', 'id_cliente_fk'], 'required'],
             [['id_usuario_fk', 'ic_form_pg', 'ic_situacao_venda', 'id_cliente_fk', 'ic_excluido'], 'integer'],
-            [['dt_login', 'dt_venda'], 'safe'],
+            [['dt_login', 'dt_venda','busca'], 'safe'],
             [['vr_total', 'vr_desconto', 'vr_acrescimo'], 'number'],
             [['id_usuario_fk'], 'exist', 'skipOnError' => true, 'targetClass' => UsuarioSistema::class, 'targetAttribute' => ['id_usuario_fk' => 'id_usuario']],
             [['id_cliente_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::class, 'targetAttribute' => ['id_cliente_fk' => 'id_cliente']],

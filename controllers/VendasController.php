@@ -166,25 +166,35 @@ class VendasController extends Controller
         }
         return $out;
     }
-    public function actionProdutoList($prod = null, $id = null){
-        \yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-        $out = ['results'=>['id'=>'','produto'=>'','valor'=>'','quantidade'=>'']];
-        if(!is_null($prod)){
+    public function actionProdutoList($busca){
+        if(strlen($busca)==15){
+            \yii::$app->response->format = yii\web\response::FORMAT_JSON;
+            $out = ['results'=>['id'=>'','produto'=>'','vr'=>'']];
             $query = new Query;
-            $query->select('id_produto,no_produto,vr_venda')->from('produto')
-            ->where(['like','cod_barra',strtoupper($prod)])->andWhere(['=','ic_excluido',false]);
+            $query->select('id_produto,no_produto,vr_venda')->from('produto')->where(['like','cod_barra',strtoupper($busca)]);
             $comamder = $query->createCommand();
             $dados = $comamder->queryAll();
             $out['results'] = array_values($dados);
-            return $out;
+            
         }
-        elseif($id>0){
-            $produto = Produto::findOne($id);
-            $out['results'] = ['id'=>$id, 'produto'=>$produto->no_produto, 'valor'=>$produto->vr_venda, 'quant'=>$produto->nu_estoque_atual];
-            return $out;
+        else{
+            \yii::$app->response->format = yii\web\response::FORMAT_JSON;
+            $out = ['results'=>['id'=>'','produto'=>'','vr'=>'']];
+            $query = new Query;
+            $query->select('id_produto,no_produto,vr_venda')->from('produto')->where(['like','no_produto',strtoupper($busca)]);
+            $comamder = $query->createCommand();
+            $dados = $comamder->queryAll();
+            $out['results'] = array_values($dados);
         }
-        $model = new Produto();
-        $item = new ItensDaVenda();
-        return $this->render('_itens',['model'=>$model,'item'=>$item]);
+        
+    }
+    public function actionAddProduto(){
+        $itens = new ItensDaVenda();
+        if ($itens->load(Yii::$app->request->post)){
+            $valor = str_replace('R$','',$itens->vr_unit_prod);
+            $itens->vr_unit_prod = trim($valor);
+            $itens->save();
+            return $this->redirect(['update','id'=>$itens->id_venda_fk]);
+        }
     }
 }
