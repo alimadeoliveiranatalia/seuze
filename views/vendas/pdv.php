@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
         <div class="card-tools">
             <div class="input-group" style="width: 400px;">
               <label for="vendas-busca">Consulte o Produto</label>
-			   <input name="Vendas[busca]" id="vendas-busca" type="text" placeholder="Informe o Produto" onkeypress='mudar()'> 
+			   <input class="form-control" name="ProdutoSearch[busca]" onblur="consultarProd(this)" id="produtosearch-busca" type="text" placeholder="Informe o Produto" > 
             </div>         
     	</div><!--./card-tools-->
     	<div class="card-tools">
@@ -195,31 +195,27 @@ use yii\widgets\ActiveForm;
 </div><!--./card card-default-->
 <?php 
 use yii\helpers\Url;
-$url=Url::base(false);
+$url=Url::toRoute(['vendas/produto-list'],true);
 	$js = <<< JS
-	function mudar(){
-		var q = $('#vendas-busca').val();
+	
+	function consultarProd(prod){
+		var q = $('#produtosearch-busca').val();
 		$.ajax({
-			url:'$url/?r=vendas/produto-list',
+			url:'$url',
 			data:'busca='+q,
 			type:'get',
 			dataType:'json',
-			success:function(response){
-				var dados = response.results;
-				var cont = dados.length;
-				console.log(response.results);
+			success:function(data){
+				var dados = data.results;
+				//var cont = dados.length;
+				console.log(dados[0]['produto']);
+				$('#itensdavenda-id_produto_fk').val(dados[0]['produto']);
+				$('#itensdavenda-vr_unit_prod').val(dados[0]['vr']);
+				$('#itensdavenda-nu_quantidade').val(1);
+				$('#itensdavenda-nu_quantidade').focus();
 			}
 		});
-			}
-	$('#tb_prod').on('click','.btn-prod',function(){
-		var l = $(this).closest('tr');
-		var id = $('#itensdavenda-id_produto').val();
-		$('#itensdavenda-id_produto_fk').val(id);
-		$('#itensdavenda-nome_produto').val(l.find("td:eq(0)").text());
-		$('#itensdavenda-nu_quantidade').val(1);
-		$('#itensdavenda-vr_unit_prod').val(l.find("td:eq(5)").text());
-		$('#itensdavenda-total').val(l.find("td:eq(6)").text());
-	})
+	}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
 ?>

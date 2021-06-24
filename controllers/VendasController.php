@@ -167,14 +167,17 @@ class VendasController extends Controller
         return $out;
     }
     public function actionProdutoList($busca){
-        if(strlen($busca)==15){
+        if(strlen($busca)<=13){
+           
             \yii::$app->response->format = yii\web\response::FORMAT_JSON;
+
             $out = ['results'=>['id'=>'','produto'=>'','vr'=>'']];
             $query = new Query;
-            $query->select('id_produto,no_produto,vr_venda')->from('produto')->where(['like','cod_barra',strtoupper($busca)]);
+            $query->select('id_produto as id,no_produto as produto,vr_venda as vr')->from('produto')->where(['like','cod_barra',$busca]);
             $comamder = $query->createCommand();
             $dados = $comamder->queryAll();
             $out['results'] = array_values($dados);
+            return $out;
             
         }
         else{
