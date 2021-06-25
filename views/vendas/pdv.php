@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 	<div class="card-body">        
         <div class="card-tools">
             <div class="input-group" style="width: 400px;">
+			<br><br>
               <label for="vendas-busca">Consulte o Produto</label>
 			   <input class="form-control" name="ProdutoSearch[busca]" onblur="consultarProd(this)" id="produtosearch-busca" type="text" placeholder="Informe o Produto" > 
             </div>         
@@ -25,17 +26,13 @@ use yii\widgets\ActiveForm;
 						<tbody>
 							<tr>
 								<td>
-									<?= $form->field($itens, 'id_produto_fk')->textInput() ?>
-    	   	                	    
+									<p id="nome_produto"></p>    	   	                	    
 								</td>
 								<td width="80">
-									<?= $form->field($itens, 'nu_quantidade')->textInput() ?>
+									<?= $form->field($itens, 'nu_quantidade')->textInput(['onblur'=>'adcionarProd()']) ?>
 								</td>						
 								<td width="120">
 									<?= $form->field($itens, 'vr_unit_prod')->textInput(['maxlength' => true]) ?>
-								</td>
-								<td width="120">
-									<?= $form->field($itens, 'total')->textInput(['onclick'=>'CalculoProduto()'])?>
 								</td>
 							</tr>
 						</tbody>
@@ -63,37 +60,18 @@ use yii\widgets\ActiveForm;
 								</div><!--./header-->
 								<br>
 								<br>
+								<input type="hidden" name="quantItem" value="0" id="quantItem">
 								<table class="Table" border="0" cellpadding="10" cellspacing="0" width="100%">
-									<tbody>
-										<tr class="Table_linha_principal">
-											<td width="50">Cod.</td>
-											<td>Produto</td>
-											<td width="50">Quantidade.</td>
-											<td width="70">Valor Unit.</td>
-											<td width="70">Total</td>
-											<td width="40"></td>
+									<thead>
+										<tr>
+											<th>Produto</th>
+											<th>Quantidade</th>
+											<th>Valor</th>
+											<th>Total</th>
 										</tr>
-								    	<tr style="display: table-row;" id="detailItem1" class="item">
-											<td valign="top"></td>
-											<td valign="top">Computador</td>
-											<td valign="top">1</td>
-											<td valign="top">100,00</td>
-											<td valign="top">100,00</td>
-											<td>
-												<a href="javascript:ExcluirLinha(1);" tabindex="1">
-													<img src="pdview_arquivos/icone_ftrash.gif" class="excluirP" title="Excluir Produto" height="16" border="0" width="16">
-												</a> 
-												<span class="infosp">
-													<img src="pdview_arquivos/icone_infoprod.png" class="infoprod" id="EstoqueAtual_1" height="16" width="16">
-												</span>
-												<input name="id_produto_1" id="id_produto_1" value="3657569" type="hidden">
-												<input name="cod_produto_1" id="cod_produto_1" value="" type="hidden">
-												<input name="desc_produto_1" id="desc_produto_1" value="Computador" type="hidden">
-												<input name="qtde_produto_1" id="qtde_produto_1" value="1" type="hidden">
-												<input name="valor_unit_produto_1" id="valor_unit_produto_1" value="100,00" type="hidden">
-												<input name="valor_total_produto_1" id="valor_total_produto_1" value="100,00" class="totais_pedido" type="hidden">
-											</td>
-										</tr>
+									</thead>
+									<tbody>		
+								
 										<tr id="itens"></tr>
 									</tbody>
 								</table>
@@ -198,24 +176,44 @@ use yii\helpers\Url;
 $url=Url::toRoute(['vendas/produto-list'],true);
 	$js = <<< JS
 	
-	function consultarProd(prod){
-		var q = $('#produtosearch-busca').val();
-		$.ajax({
-			url:'$url',
-			data:'busca='+q,
-			type:'get',
-			dataType:'json',
-			success:function(data){
-				var dados = data.results;
-				//var cont = dados.length;
-				console.log(dados[0]['produto']);
-				$('#itensdavenda-id_produto_fk').val(dados[0]['produto']);
-				$('#itensdavenda-vr_unit_prod').val(dados[0]['vr']);
-				$('#itensdavenda-nu_quantidade').val(1);
-				$('#itensdavenda-nu_quantidade').focus();
-			}
-		});
-	}
+		function consultarProd(prod){
+			var q = $('#produtosearch-busca').val();
+			$.ajax({
+				url:'$url',
+				data:'busca='+q,
+				type:'get',
+				dataType:'json',
+				success:function(data){
+					var dados = data.results;
+					//var cont = dados.length;
+					console.log(dados[0]['produto']);
+					$('#nome_produto').html(dados[0]['produto']);
+					$('#itensdavenda-vr_unit_prod').val(dados[0]['vr']);
+					$('#itensdavenda-nu_quantidade').val(1);
+					$('#itensdavenda-nu_quantidade').focus();
+				}
+			});
+		}
+		function adcionarProd(){
+			var nro;
+			nro = $("#quantItem").val();
+			nro++;
+			$("#quantItem").val(nro);
+			var no_prod;
+			no_prod = $("#nome_produto").html();
+			var quant, valor, subtotal;
+			quant = $("#itensdavenda-nu_quantidade").val();
+			valor = $("#itensdavenda-vr_unit_prod").val();
+			subtotal = quant*valor;
+			$("<tr id='item"+nro+"'>").insertBefore("#itens").hide();
+			$("<td>"+no_prod+"</td>").appendTo("#item"+nro);
+			$("<td>"+quant+"</td>").appendTo("#item"+nro);
+			$("<td>"+valor+"</td>").appendTo("#item"+nro);
+			$("<td>"+subtotal+"</td>").appendTo("#item"+nro);
+			$("</tr>").appendTo("#item"+nro);
+			$("#item"+nro).show();
+			alert("adcionado");
+		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
 ?>
