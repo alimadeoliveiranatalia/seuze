@@ -26,13 +26,13 @@ use yii\widgets\ActiveForm;
 						<tbody>
 							<tr>
 								<td>
-									<p id="nome_produto"></p>    	   	                	    
+									<h2 id="nome_produto"></h2>    	   	                	    
 								</td>
 								<td width="80">
 									<?= $form->field($itens, 'nu_quantidade')->textInput(['onblur'=>'adcionarProd()']) ?>
 								</td>						
 								<td width="120">
-									<?= $form->field($itens, 'vr_unit_prod')->textInput(['maxlength' => true]) ?>
+									<h2 id="valor_unit"></h2>	
 								</td>
 							</tr>
 						</tbody>
@@ -51,8 +51,6 @@ use yii\widgets\ActiveForm;
 						<td valign="top">
                     		<div id="Table_Produtos" class="">
 								<div class="header">
-									<h1 id="numeroPedido">Pedido Nº 0001</h1>
-									<div class="desc" id="dadosPedido">29/02/2016 09:04:13 - silva123</div>
                     		        <div id="hidden_frente">
 										<input name="id_frente" id="id_frente" value="417024" type="hidden">
 									</div>
@@ -67,7 +65,7 @@ use yii\widgets\ActiveForm;
 											<th>Produto</th>
 											<th>Quantidade</th>
 											<th>Valor</th>
-											<th>Total</th>
+											<th>Valor Total</th>
 										</tr>
 									</thead>
 									<tbody>		
@@ -104,9 +102,7 @@ use yii\widgets\ActiveForm;
 						SubTotal: <span id="subtotal_div">R$ 100,00</span>
 						<input name="valor_total_produtos" id="valor_total_produtos" value="100" type="hidden">
 					</td>
-					<td>
-						<?= $form->field($model, 'ic_form_pg')->dropDownList($model->pagamento) ?>
-					</td>
+					
 					<td width="80">
 						<strong>Observações:</strong>
 					</td>
@@ -188,7 +184,7 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 					//var cont = dados.length;
 					console.log(dados[0]['produto']);
 					$('#nome_produto').html(dados[0]['produto']);
-					$('#itensdavenda-vr_unit_prod').val(dados[0]['vr']);
+					$('#valor_unit').html(dados[0]['vr']);
 					$('#itensdavenda-nu_quantidade').val(1);
 					$('#itensdavenda-nu_quantidade').focus();
 				}
@@ -203,7 +199,7 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 			no_prod = $("#nome_produto").html();
 			var quant, valor, subtotal;
 			quant = $("#itensdavenda-nu_quantidade").val();
-			valor = $("#itensdavenda-vr_unit_prod").val();
+			valor = $("#valor_unit").html();
 			subtotal = quant*valor;
 			$("<tr id='item"+nro+"'>").insertBefore("#itens").hide();
 			$("<td>"+no_prod+"</td>").appendTo("#item"+nro);
@@ -212,7 +208,7 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 			$("<td>"+subtotal+"</td>").appendTo("#item"+nro);
 			$("</tr>").appendTo("#item"+nro);
 			$("#item"+nro).show();
-			alert("adcionado");
+			$("#produtosearch-busca").val('');
 		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
