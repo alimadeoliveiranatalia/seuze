@@ -22,6 +22,9 @@ class ItensDaVenda extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $idProduto;
+    public $quantidade;
+    public $valorUnitario;
     public static function tableName()
     {
         return 'itens_da_venda';
@@ -35,6 +38,7 @@ class ItensDaVenda extends \yii\db\ActiveRecord
         return [
             [['id_venda_fk', 'id_produto_fk', 'vr_unit_prod','total', 'nu_quantidade'], 'required'],
             [['id_venda_fk', 'id_produto_fk', 'nu_quantidade', 'ic_excluido'], 'integer'],
+            [['idProduto','quantidade','valorUnitario'],'safe'],
             [['vr_unit_prod'], 'number'],
             [['id_venda_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Vendas::class, 'targetAttribute' => ['id_venda_fk' => 'id_venda']],
             [['id_produto_fk'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_produto_fk' => 'id_produto']],

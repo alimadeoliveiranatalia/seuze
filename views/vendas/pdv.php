@@ -5,8 +5,8 @@ use yii\widgets\ActiveForm;
 
 ?>
 <div class="card card-default">		
-	<div class="card-header">			
-		<?=Html::img('pdview_arquivos/logo_topo_vhsys.png',['class'=>'left'])?>                
+	<div class="card-header">
+		<?=Html::img('estilo/img/logo1.png',['class'=>'left'])?><br>			                
 		<?= Html::a('<span>Operador: </span>','usuario-sistema/index',['class'=>'btn-menu right'])?>       
 	</div><!--./car-header-->
 	<div>
@@ -30,7 +30,9 @@ use yii\widgets\ActiveForm;
 								</td>
 								<td width="80">
 									<?= $form->field($itens, 'nu_quantidade')->textInput(['onblur'=>'adcionarProd()']) ?>
-								</td>						
+									<input type="text" id="itensdavenda-quantidade" class="form-control" name="ItensDaVenda[quantidade][]" type="hidden">
+								</td>
+													
 								<td width="120">
 									<h2 id="valor_unit"></h2>	
 								</td>
@@ -99,8 +101,8 @@ use yii\widgets\ActiveForm;
 			<tbody>
 				<tr>
 					<td class="subtotal" width="280">
-						SubTotal: <span id="subtotal_div">R$ 100,00</span>
-						<input name="valor_total_produtos" id="valor_total_produtos" value="100" type="hidden">
+						SubTotal: <h2 id="subtotal_div">R$ 00,00</h2>
+						<input name="valor_total_produtos" id="valor_total_produtos" value="0" type="hidden">
 					</td>
 					
 					<td width="80">
@@ -174,41 +176,60 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 	
 		function consultarProd(prod){
 			var q = $('#produtosearch-busca').val();
-			$.ajax({
-				url:'$url',
-				data:'busca='+q,
-				type:'get',
-				dataType:'json',
-				success:function(data){
-					var dados = data.results;
-					//var cont = dados.length;
-					console.log(dados[0]['produto']);
-					$('#nome_produto').html(dados[0]['produto']);
-					$('#valor_unit').html(dados[0]['vr']);
-					$('#itensdavenda-nu_quantidade').val(1);
-					$('#itensdavenda-nu_quantidade').focus();
-				}
-			});
+			if(q!=""){
+				$.ajax({
+					url:'$url',
+					data:'busca='+q,
+					type:'get',
+					dataType:'json',
+					success:function(data){
+						var dados = data.results;
+						//var cont = dados.length;
+						console.log(dados[0]['produto']);
+						$('#nome_produto').html(dados[0]['produto']);
+						$('#valor_unit').html(dados[0]['vr']);
+						$('#itensdavenda-nu_quantidade').val(1);
+						$('#itensdavenda-nu_quantidade').focus();
+					}
+				});
+			}
 		}
 		function adcionarProd(){
 			var nro;
-			nro = $("#quantItem").val();
-			nro++;
-			$("#quantItem").val(nro);
-			var no_prod;
-			no_prod = $("#nome_produto").html();
-			var quant, valor, subtotal;
-			quant = $("#itensdavenda-nu_quantidade").val();
-			valor = $("#valor_unit").html();
-			subtotal = quant*valor;
-			$("<tr id='item"+nro+"'>").insertBefore("#itens").hide();
-			$("<td>"+no_prod+"</td>").appendTo("#item"+nro);
-			$("<td>"+quant+"</td>").appendTo("#item"+nro);
-			$("<td>"+valor+"</td>").appendTo("#item"+nro);
-			$("<td>"+subtotal+"</td>").appendTo("#item"+nro);
-			$("</tr>").appendTo("#item"+nro);
-			$("#item"+nro).show();
-			$("#produtosearch-busca").val('');
+			var q = $('#produtosearch-busca').val();
+			if(q!=""){
+				nro = $("#quantItem").val();
+				nro++;
+				$("#quantItem").val(nro);
+				var no_prod;
+				no_prod = $("#nome_produto").html();
+				var quant, valor, subtotal, total;
+				quant = $("#itensdavenda-nu_quantidade").val();
+				valor = $("#valor_unit").html();
+				subtotal = quant*valor;
+				total = $("#valor_total_produtos").val();
+				total = subtotal+total*1;
+				$("#subtotal_div").html(total);
+				$("#valor_total_produtos").val(total); //atualiza
+				$("<tr id='item"+nro+"'>").insertBefore("#itens").hide();
+				$("<td>"+no_prod+"</td>").appendTo("#item"+nro);
+				$("<td>"+quant+"</td>").appendTo("#item"+nro);
+				$("<td>"+valor+"</td>").appendTo("#item"+nro);
+				$("<td>"+subtotal+"</td>").appendTo("#item"+nro);
+				$("</tr>").appendTo("#item"+nro);
+				$("[ItensDaVenda[quantidade][]]").val(quant);
+				$("#item"+nro).show();
+				$("#produtosearch-busca").val('');
+				$("#produtosearch-busca").focus();
+			}
+			
+		}
+		function calcularTotal(subtotal){
+			var total =0;
+			for(i=0; i<2;i++){
+				var totaldef = total+subtotal;
+			}
+			$("#subtotal_div").html(totaldef);
 		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
