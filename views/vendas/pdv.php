@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
     	    <?php $form = ActiveForm::begin(['id'=>'sitens']) ?>
 			<div class="wrapper-fluid">
 				<div style="margin-left: 145px;">
-					<table onkeypress="if(event.keyCode==13){AdicionarLinha(''); ScrollDown();}" border="0" cellpadding="10px" width="100%">
+					<table  border="0" cellpadding="10px" width="100%">
 						<tbody>
 							<tr>
 								<td>
@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 								</td>
 								<td width="80">
 									<?= $form->field($itens, 'nu_quantidade')->textInput(['onblur'=>'adcionarProd()']) ?>
-									<input type="text" id="itensdavenda-quantidade" class="form-control" name="ItensDaVenda[quantidade][]" type="hidden">
+									<input type="hidden" id="itensdavendaquantidade"  name="ItensDaVenda[quantidade][]" value="">
 								</td>
 													
 								<td width="120">
@@ -131,11 +131,7 @@ use yii\widgets\ActiveForm;
 	<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
 	<div id="Layer_Imprimir"></div>
 	<?php ActiveForm::end(); ?>
-	<script type="text/javascript">
-		window.setInterval("BuscarInfo()", 180000);
-		window.setInterval("xajax_PedidosPendentes()", 60000);
-		Iniciar();
-	</script>
+
 
 
 	<div id="qtip-rcontainer"></div>
@@ -197,7 +193,7 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 		function adcionarProd(){
 			var nro;
 			var q = $('#produtosearch-busca').val();
-			if(q!=""){
+			
 				nro = $("#quantItem").val();
 				nro++;
 				$("#quantItem").val(nro);
@@ -217,19 +213,14 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 				$("<td>"+valor+"</td>").appendTo("#item"+nro);
 				$("<td>"+subtotal+"</td>").appendTo("#item"+nro);
 				$("</tr>").appendTo("#item"+nro);
-				$("[ItensDaVenda[quantidade][]]").val(quant);
+		
 				$("#item"+nro).show();
 				$("#produtosearch-busca").val('');
 				$("#produtosearch-busca").focus();
-			}
+				var temp = document.getElementsByName("ItensDaVenda[quantidade][]");
+				temp[nro].value = 10+nro;
+				alert(temp[nro].value)				
 			
-		}
-		function calcularTotal(subtotal){
-			var total =0;
-			for(i=0; i<2;i++){
-				var totaldef = total+subtotal;
-			}
-			$("#subtotal_div").html(totaldef);
 		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);

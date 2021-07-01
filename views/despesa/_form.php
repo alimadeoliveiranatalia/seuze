@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dt_pagamento')->textInput() ?>
 
-    <?= $form->field($model, 'ic_cat_despesa')->dropDownList(['0'=>'CUSTOS FIXOS','1'=>'FORNECEDORES','2'=>'INVESTIMENTOS']) ?>
+    <?= $form->field($model, 'ic_cat_despesa')->dropDownList(['0'=>'CUSTOS FIXOS','1'=>'FORNECEDORES','2'=>'INVESTIMENTOS', '3'=>'GASTOS PESSOAIS']) ?>
 
     <?= $form->field($model, 'ic_forma_pg')->dropDownList(['0'=>'DINHEIRO','1'=>'PIX','2'=>'DÉBITO','3'=>'CRÉDITO','4'=>'FIADO']) ?>
 
