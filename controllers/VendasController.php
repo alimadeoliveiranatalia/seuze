@@ -191,6 +191,9 @@ class VendasController extends Controller
         }
         
     }
+    public function actionConfirmarVenda($total){
+        return $this->render('_fecharVenda',['valorTotal'=>$total]);
+    }
     public function actionAddProduto(){
         $itens = new ItensDaVenda();
         if ($itens->load(Yii::$app->request->post)){

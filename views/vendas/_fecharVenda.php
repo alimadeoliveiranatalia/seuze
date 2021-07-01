@@ -1,183 +1,4 @@
-<div id="header">
-	<div class="main-bar">
-		<div class="wrapper-fluid">
-			<div class="left">
-				<img src="PDV%20-%20view2_arquivos/logo_topo_vhsys.png" title="VHSYS">
-			</div><!--./left-->
-            <div class="left">
-            	<div class="box_visualizar" id="valebrinde_div" style="font-size: 18px;color: #FF0;margin: 10px;margin-left: 50px;">VALE BRINDE</div>
-            </div><!--./left-->
-			<div class="right">
-                <a href="#" class="btn-menu">
-                	<span>Operador: </span>
-                    <span id="nome-operador">silva123</span> 
-                </a>
-                <a href="javascript:FecharJanela()">
-                    <span class="icon close"></span>
-                </a>
-                <ul class="list-inline menu-top" id="lista-operadores"></ul>		
-            </div><!--./right-->
-		</div><!--./wrapper-fluid-->
-	</div><!--./main-bar-->
-	<div class="wrapper-fluid">
-		<div class="left">
-			<div class="avatar"><img src="PDV%20-%20view2_arquivos/logo.jpg" id="featured" border="0" width="100"></div>
-		</div><!--./left-->
-		<div style="margin-left: 145px;">			
-			<table onkeypress="if(event.keyCode==13){AdicionarLinha(''); ScrollDown();}" border="0" cellpadding="10px" width="100%">
-				<tbody>
-                    <tr>
-					    <td width="80">
-					    	<label for="qtde_produto">Quantidade </label>
-					    	<input name="qtde_produto" id="qtde_produto" value="1" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
-					    </td>
-					    <td>
-					    	<label for="desc_produto">Produto </label>
-					    	<input autocomplete="off" name="desc_produto" id="desc_produto" onkeypress="retirarAcento(this);LimpaProduto(event);" class="input-block" type="text">
-                            <input name="id_produto" id="id_produto" value="" type="hidden">
-                            <input name="cod_produto" id="cod_produto" value="" class="input-block" type="hidden">
-                            <input name="listapreco" id="listapreco" value="" type="hidden">
-					    </td>
-					    <td width="120">
-					    	<label for="valor_unit_produto">Valor Unit�rio </label>
-					    	<input name="valor_unit_produto" id="valor_unit_produto" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,'')" onkeyup="CalculoProduto();" class="input-block" type="text">
-					    </td>
-					    <td width="120">
-					    	<label for="valor_total_produto">Valor Total </label>
-					    	<input name="valor_total_produto" id="valor_total_produto" readonly="readonly" class="totais_pedido input-block" type="text">
-                            <input name="QtdeProdutos" id="QtdeProdutos" value="1" type="hidden">
-					    </td>
-					    <td width="140">
-					    	<button class="button large green" onclick="AdicionarLinha(''); ScrollDown();">Incluir</button>
-					    </td>
-				    </tr>
-			    </tbody>
-            </table>			
-		</div><!--style-->
-		<div class="clr"></div>
-	</div><!--./wrapper-fluid-->
-</div><!--header-->	
-<div id="main" class="wrapper-fluid">	
-	<div class="box">
-		<table cellpadding="0" cellspacing="0" width="100%">
-			<tbody>
-                <tr>
-				    <td valign="top">
-                        <div id="Table_Produtos" class="">
-				        	<div class="header">
-				        		<h1 id="numeroPedido">Pedido N� 0001</h1>
-				        		<div class="desc" id="dadosPedido">29/02/2016 09:04:13 - silva123</div>
-                                <div id="hidden_frente"><input name="id_frente" id="id_frente" value="417024" type="hidden"></div>
-		                        <input name="SituacaoCaixa" id="SituacaoCaixa" value="Aberto" type="hidden">
-				        	</div><!--./header-->
-				        	<br><br>
-				        	<table class="Table" border="0" cellpadding="10" cellspacing="0" width="100%">
-				        		<tbody>
-                                    <tr class="Table_linha_principal">
-				        			    <td width="50">Cod.</td>
-				        			    <td>Produto</td>
-				        			    <td width="50">Qtde.</td>
-				        			    <td width="70">Valor Unit.</td>
-				        			    <td width="70">Total</td>
-				        			    <td width="40"></td>
-				        		    </tr>
-				        	    <tr style="display: table-row;" id="detailItem1" class="item">
-                                    <td valign="top"></td>
-                                    <td valign="top">Computador</td>
-                                    <td valign="top">1,00</td>
-                                    <td valign="top">100,00</td>
-                                    <td valign="top">100,00</td>
-                                    <td>
-                                        <a href="javascript:ExcluirLinha(1);" tabindex="1">
-                                            <img src="PDV%20-%20view2_arquivos/icone_ftrash.gif" class="excluirP" title="Excluir Produto" height="16" border="0" width="16">
-                                        </a> 
-                                        <span class="infosp">
-                                            <img src="PDV%20-%20view2_arquivos/icone_infoprod.png" class="infoprod" id="EstoqueAtual_1" height="16" width="16">
-                                        </span>
-                                        <input name="id_produto_1" id="id_produto_1" value="3657569" type="hidden">
-                                        <input name="cod_produto_1" id="cod_produto_1" value="" type="hidden">
-                                        <input name="desc_produto_1" id="desc_produto_1" value="Computador" type="hidden">
-                                        <input name="qtde_produto_1" id="qtde_produto_1" value="1,00" type="hidden">
-                                        <input name="valor_unit_produto_1" id="valor_unit_produto_1" value="100,00" type="hidden">
-                                        <input name="valor_total_produto_1" id="valor_total_produto_1" value="100,00" class="totais_pedido" type="hidden">
-                                    </td>
-                                </tr>
-                                <tr id="itens"></tr>
-				        	</tbody>
-                        </table>
-                        <a name="headerprod" id="headerprod"></a>
-                        </div><!--./div tableProduto-->
-                        <div id="CaixaLivre" class="caixa-livre box_visualizar">
-                        	<img src="PDV%20-%20view2_arquivos/icon-pdf-livre.png" alt=""><br>
-                            CAIXA LIVRE
-                        </div><!--./caixa-livre box_visualizar-->
-                        <div id="AbrindoCaixa" class="caixa-livre box_visualizar">
-                            ABRINDO CAIXA...
-                        </div><!--./caixa-livre box_visualizar-->
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-				    </td>
-				    <td style="padding-left: 40px;" valign="top" width="200">
-				        <h3>Pedidos em Aberto</h3>
-				        <div class="overflow">
-				        	<ul class="list-dashed list-slim" id="pedidosPendurados">
-                                <li>
-                                    <a href="javascript:ObterPedido('417024')">
-                                        strong>1</strong> - silva123 - 09:04
-                                    </a>
-                                </li>
-                            </ul>
-				        </div><!--./overflow-->
-				    </td>
-			    </tr>
-		    </tbody>
-        </table>
-	</div><!--./box-->
-</div><!--./wrapper-fluid-->
-<div class="footer rodape">
-	<table border="0" cellpadding="10px" cellspacing="0" width="100%">
-		<tbody>
-            <tr>
-			    <td class="subtotal" width="280">
-                    SubTotal: <span id="subtotal_div">R$ 100,00</span>
-                    <input name="valor_total_produtos" id="valor_total_produtos" value="100" type="hidden">
-                </td>
-			    <td width="80">
-                    <strong>Observa��es:</strong>
-                </td>
-			    <td>
-                    <input autocomplete="off" id="obs_pedido" name="obs_pedido" class="input-block" type="text">
-                </td>
-			    <td width="120">
-			    	<button class="button medium green" onclick="javascript:Confirmar();">Confirmar</button>
-			    </td>
-			    <td width="120">
-			    	<button class="button medium yellow" onclick="javascript:Aguardar();">Aguardar</button>
-			    </td>
-			    <td width="120">
-			    	<button class="button medium red" onclick="javascript:Cancelar();">Cancelar</button>
-			    </td>
-		    </tr>
-	    </tbody>
-    </table>
-</div><!--./footer rodape-->
-<input name="ok" id="ok" value="" type="hidden">
-<input name="erro" id="erro" value="" type="hidden">
-<input name="valebrinde" id="valebrinde" value="" type="hidden">
-<input name="operador_atual" id="operador_atual" value="43860" type="hidden">
-<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
-<div id="Layer_Imprimir"></div>
-<script type="text/javascript">
-	window.setInterval("BuscarInfo()", 180000);
-	window.setInterval("xajax_PedidosPendentes()", 60000);
-	Iniciar();
-</script>
-<div id="qtip-rcontainer"></div>
-<div style="display: block; opacity: 0.3; cursor: pointer; visibility: visible;" id="cboxOverlay"></div>
-<div style="display: block; visibility: visible; top: 185px; left: 340px; position: absolute; width: 920px; height: 419px;" tabindex="-1" role="dialog" class="" id="colorbox">
-    <div style="height: 419px; width: 920px;" id="cboxWrapper"><div>
+<div style="height: 419px; width: 920px;" id="cboxWrapper"><div>
     <div style="float: left;" id="cboxTopLeft"></div>
     <div style="float: left; width: 920px;" id="cboxTopCenter"></div>
     <div style="float: left;" id="cboxTopRight"></div>
@@ -279,8 +100,8 @@
                                                                     <br>
                                                                     <input id="bairro_cliente" name="bairro_cliente" size="30" type="text">
                                                                 </td>
-                                                                <td><
-                                                                    label>Complemento</label>
+                                                                <td>&lt;
+                                                                    label&gt;Complemento
                                                                     <br>
                                                                     <input id="complemento_cliente" name="complemento_cliente" size="15" type="text">
                                                                 </td>
@@ -390,7 +211,7 @@
                         <label>Total da compra:</label>
                     </td>
                     <td align="right">
-                        <strong>R$ 100,00</strong>
+                        <strong>R$ <?= $valorTotal?></strong>
                     </td>
                 </tr>
 		        <tr>
@@ -408,36 +229,10 @@
                         <label for="">Total a pagar:</label>
                     </td>
                     <td style="border-top: 1px solid #c1ced4; padding-top: 20px;" align="right">
-                        <strong style="color: #406e0e;font-size:24px;" id="Layer_total">R$ 100,00</strong>
+                        <strong style="color: #406e0e;font-size:24px;" id="Layer_total"><?=$valorTotal?></strong>
                         <input name="confir_produtos" id="confir_produtos" value="100.00" type="hidden">
                         <input name="valor_total_nota" id="valor_total_nota" value="100.00" type="hidden">
                     </td>
-                </tr>
-                <tr>
-                     <td style="padding-bottom: 20px;">
-                         <label>Pagamento: </label>
-                     </td>
-                     <td style="padding-bottom: 20px;" align="right">
-                         <label>
-                             <input name="tipo_pagamento" id="tipo_pagamento" value="1" checked="checked" onclick="TrocarTipoPagamento(1)" type="radio"> 
-                             A vista
-                         </label>
-                         &nbsp;&nbsp;
-                         <label>
-                             <input name="tipo_pagamento" id="tipo_pagamento" value="2" onclick="TrocarTipoPagamento(2)" type="radio">
-                              Parcelado
-                         </label>
-                     </td>
-                </tr>
-                <tr class="" id="Layer_info">
-                     <td style="border-top: 1px solid #c1ced4; padding-top: 20px;">
-                         <label for="">Cliente ou CPF:</label>
-                     </td>
-                     <td style="border-top: 1px solid #c1ced4; padding-top: 20px; position:relative">
-                         <input autocomplete="off" id="nome_cliente" name="nome_cliente" onkeypress="retirarAcento(this);LimpaCliente(event);MascaraCPFTexto(this)" style="width: 200px;float:right" onblur="VerificaCliente()" type="text">
-                         <input name="id_cliente" id="id_cliente" value="" type="hidden">
-                         <input name="consumidor_final" id="consumidor_final" value="" type="hidden">
-                     </td>
                 </tr>
                 <tr>
                     <td class="box_visualizar" colspan="2" id="LayerReferenciar">
@@ -463,15 +258,9 @@
                     <td align="right">
                         <select name="forma_pagamento" id="forma_pagamento" onchange="TrocarFormaPagamento(this.value)">
                           <option selected="selected" value="Dinheiro">Dinheiro</option>
-                          <option value="Cart�o de Cr�dito">Cart�o de Cr�dito</option>
-                          <option value="Cart�o de D�bito">Cart�o de D�bito</option>
-                          <option value="Cheque">Cheque</option>
-                          <option value="Cr�dito Loja">Cr�dito Loja</option>
-                          <option value="Vale Alimenta��o">Vale Alimenta��o</option>
-                          <option value="Vale Refei��o">Vale Refei��o</option>
-                          <option value="Vale Presente">Vale Presente</option>
-                          <option value="Vale Combust�vel">Vale Combust�vel</option>
-                          <option value="Outros">Outros</option>
+                          <option value="Cartão de Crédito">Cartão de Crédito</option>
+                          <option value="Cartão de Débito">Cartão de Débito</option>
+                          <option value="pix">PIX</option>
                         </select>
                     </td>
                 </tr>
@@ -484,16 +273,6 @@
                     <td align="right">
                         <input name="valor_recebido" id="valor_recebido" onkeypress="return (soNums(event,''));" onkeydown="Formata(this,20,event,2)" onkeyup="CalculoTroco();" style="width:100px;" autocomplete="off" type="text">
                     </td>
-                </tr>
-                <tr>
-                    <td width="190">
-                        <label>Conta Banc�ria:</label>
-                    </td>
-                    <td align="right">
-                        <select name="id_banco" id="id_banco" style="width:150px;">
-			    			<option value="54573" selected="selected">Conta Inicial (Caixinha)</option>
-			    		</select>
-			    	</td>
                 </tr>
                 <tr id="Layer_troco">
                     <td style="border-top: 1px solid #c1ced4; padding-top: 20px;" width="150">
@@ -553,7 +332,7 @@
 </div>
 </form>
 </div>
-    <div style="float: left; display: block;" id="cboxTitle">CONFIRMA��O DE PAGAMENTO</div>
+    <div style="float: left; display: block;" id="cboxTitle">CONFIRMAÇÃO DE PAGAMENTO</div>
     <div style="float: left; display: none;" id="cboxCurrent"></div>
     <button style="display: none;" id="cboxPrevious" type="button"></button>
     <button style="display: none;" id="cboxNext" type="button"></button>
@@ -569,6 +348,4 @@
     <div style="float: left; width: 920px;" id="cboxBottomCenter"></div>
     <div style="float: left;" id="cboxBottomRight"></div>
 </div>
-</div>
-<div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
 </div>
