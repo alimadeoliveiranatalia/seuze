@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 	<div class="card-header">
 		<?=Html::img('estilo/img/logo1.png',['class'=>'left'])?><br>			                
 		<?= Html::a('<span>Operador: </span>','usuario-sistema/index',['class'=>'btn-menu right'])?>       
-	</div><!--./car-header-->
+	</div><!--./card-header-->
 	<div>
 	<div class="card-body">        
         <div class="card-tools">
@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 			<br><br>
               <label for="vendas-busca">Consulte o Produto</label>
 			   <input class="form-control" name="ProdutoSearch[busca]" onblur="consultarProd(this)" id="produtosearch-busca" type="text" placeholder="Informe o Produto" > 
-            </div>         
+            </div><!--./input-group-->       
     	</div><!--./card-tools-->
     	<div class="card-tools">
     	    <?php $form = ActiveForm::begin(['id'=>'sitens']) ?>
@@ -40,22 +40,20 @@ use yii\widgets\ActiveForm;
 						</tbody>
 					</table>				
 				</div>			
-			</div>
+			</div><!--./wrapper-fluid-->
     	</div><!--./card-tools-->
-    </div>
-
-	
+    </div><!--./card-body-->	
 	<div id="main" class="wrapper-fluid">		
 		<div class="box">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<tbody>
 					<tr>
 						<td valign="top">
-                    		<div id="Table_Produtos" class="">
+                    		<div id="Table_Produtos">
 								<div class="header">
                     		        <div id="hidden_frente">
 										<input name="id_frente" id="id_frente" value="417024" type="hidden">
-									</div>
+									</div><!--./#hidden_frente-->
 			        		        <input name="SituacaoCaixa" id="SituacaoCaixa" value="Aberto" type="hidden">
 								</div><!--./header-->
 								<br>
@@ -76,14 +74,14 @@ use yii\widgets\ActiveForm;
 									</tbody>
 								</table>
                     		    <a name="headerprod" id="headerprod"></a>
-                    		</div>
+                    		</div><!--/#tableProdutos-->
                     		<div id="CaixaLivre" class="caixa-livre box_visualizar">
                     			<img src="pdview_arquivos/icon-pdf-livre.png" alt=""><br>
                     		    CAIXA LIVRE
-                    		</div>
+                    		</div><!--./caixa-livre box_visualizar-->
                     		<div id="AbrindoCaixa" class="caixa-livre box_visualizar">
                     		    ABRINDO CAIXA...
-                    		</div>
+                    		</div><!--./caixa-livre box_visualizar-->
                     		<br>
                     		<br>
                     		<br>
@@ -92,38 +90,34 @@ use yii\widgets\ActiveForm;
 					</tr>
 				</tbody>
 			</table>
-		</div>
-	</div>
-
-	
-
-		<table border="0" cellpadding="10px" cellspacing="0" width="100%">
-			<tbody>
-				<tr>
-					<td class="subtotal" width="280">
-						SubTotal: <h2 id="subtotal_div">R$ 00,00</h2>
-						<input name="valor_total_produtos" id="valor_total_produtos" value="0" type="hidden">
-					</td>
-					
-					<td width="80">
-						<strong>Observações:</strong>
-					</td>
-					<td>
-						<input autocomplete="off" id="obs_pedido" name="obs_pedido" class="input-block" type="text">
-					</td>
-					<td width="120">
-						<button class="button medium green" onclick="javascript:Confirmar();">Confirmar</button>
-					</td>
-					<td width="120">
-						<button class="button medium yellow" onclick="javascript:Aguardar();">Aguardar</button>
-					</td>
-					<td width="120">
-						<button class="button medium red" onclick="javascript:Cancelar();">Cancelar</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	
+		</div><!--./box-->
+	</div><!--./wrapper-fluid-->
+	<table border="0" cellpadding="10px" cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td class="subtotal" width="280">
+					SubTotal: <h2 id="subtotal_div">R$ 00,00</h2>
+					<input name="valor_total_produtos" id="valor_total_produtos" value="0" type="hidden">
+				</td>
+				
+				<td width="80">
+					<strong>Observações:</strong>
+				</td>
+				<td>
+					<input autocomplete="off" id="obs_pedido" name="obs_pedido" class="input-block" type="text">
+				</td>
+				<td width="120">
+					<button class="button medium green">Confirmar</button>
+				</td>
+				<td width="120">
+					<button class="button medium yellow" onclick="javascript:Aguardar();">Aguardar</button>
+				</td>
+				<td width="120">
+					<button class="button medium red" onclick="javascript:Cancelar();">Cancelar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
 	<input name="ok" id="ok" value="" type="hidden">
 	<input name="erro" id="erro" value="" type="hidden">
 	<input name="valebrinde" id="valebrinde" value="" type="hidden">
@@ -131,9 +125,6 @@ use yii\widgets\ActiveForm;
 	<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
 	<div id="Layer_Imprimir"></div>
 	<?php ActiveForm::end(); ?>
-
-
-
 	<div id="qtip-rcontainer"></div>
 	<div style="display: none;" id="cboxOverlay"></div>
 	<div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox">

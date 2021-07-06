@@ -1,10 +1,5 @@
-<div style="height: 419px; width: 920px;" id="cboxWrapper"><div>
-    <div style="float: left;" id="cboxTopLeft"></div>
-    <div style="float: left; width: 920px;" id="cboxTopCenter"></div>
-    <div style="float: left;" id="cboxTopRight"></div>
-</div>
+
 <div style="clear: left;">
-    <div style="float: left; height: 419px;" id="cboxMiddleLeft"></div>
     <div style="float: left; width: 920px; height: 419px;" id="cboxContent">
         <div style="display: block; width: 870px; overflow: auto; height: 369px;" id="cboxLoadedContent">
             <form id="formClienteRapido" name="formClienteRapido" method="post" action="#" onsubmit="return false;">
@@ -211,7 +206,7 @@
                         <label>Total da compra:</label>
                     </td>
                     <td align="right">
-                        <strong>R$ <?= $valorTotal?></strong>
+                        <h3>R$ <?= $valorTotal?></h3>
                     </td>
                 </tr>
 		        <tr>
@@ -241,12 +236,6 @@
                 </tr>
             </tbody>
         </table>
-        <div id="LayerDadosCliente_Info" class="box_visualizar">
-            <a href="javascript:AbrirCadastroCliente()" tabindex="1">Deseja atualizar o cadastro deste cliente?</a>
-        </div>
-        <div id="LayerDadosCliente_Info2" class="box_visualizar">
-            <a href="javascript:AbrirCadastroCliente()" tabindex="1">Este cliente n�o possui cadastro, deseja complet�-lo?</a>
-        </div>
     </div>
     <div style="background: #f8f8f8; border: 1px solid #c1ced4; width: 405px; float: left; padding: 20px;">
         <table class="" id="LayerPagamentoAVista" border="0" cellpadding="5" cellspacing="0" width="100%">
@@ -281,24 +270,6 @@
                     <td style="border-top: 1px solid #c1ced4; padding-top: 20px;" align="right">
                         <strong style="color: #406e0e; font-size:16px" id="Layer_trocoValor">R$ 0,00</strong>
                         <input name="troco_pedido" id="troco_pedido" value="0" type="hidden">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table id="LayerPagamentoParcelado" class="box_visualizar" border="0" cellpadding="5" cellspacing="0" width="100%">
-            <tbody>
-                <tr>
-                    <td>
-                        <label>N�mero de Parcelas: </label>
-                    </td>
-                    <td>
-                        <input name="condicao_pagamento" id="condicao_pagamento" onkeypress="return (soNums(event,''));" size="3" maxlength="2" type="text">
-                        <input name="gerar_parcelas" id="gerar_parcelas" value="Gerar" class="button small" onclick="CalculoParcelas()" type="button">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div id="Layer_Condicao"></div>
                     </td>
                 </tr>
             </tbody>
