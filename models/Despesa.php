@@ -91,4 +91,13 @@ class Despesa extends \yii\db\ActiveRecord
     {
         return $this->hasOne(UsuarioSistema::class, ['id_usuario' => 'id_usuario_fk']);
     }
+    public function beforeSave($insert)
+    {
+        $this->no_descricao = strtoupper($this->no_descricao);
+        $date_venc = str_replace('/','-',$this->dt_vencimento);
+        $this->dt_vencimento = date('Y-m-d',strtotime($date_venc));
+        $date_pg = str_replace('/','-',$this->dt_pagamento);
+        $this->dt_pagamento = date('Y-m-d',strtotime($date_pg));
+        $this->no_recebedor = strtoupper($this->no_recebedor);
+    }
 }

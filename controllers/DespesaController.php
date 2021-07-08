@@ -67,7 +67,7 @@ class DespesaController extends Controller
     public function actionCreate()
     {
         $model = new Despesa();
-        $model->id_usuario_fk = 1;
+        $model->id_usuario_fk = \Yii::$app->user->id;
         $model->dt_login = date('Y-m-d');
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

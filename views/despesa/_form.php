@@ -1,7 +1,7 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Despesa */
@@ -11,7 +11,6 @@ use yii\widgets\ActiveForm;
 <div class="despesa-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
     
     <?= $form->field($model, 'no_descricao')->textInput(['maxlength' => true]) ?>
 
@@ -29,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'vr_multa')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dt_vencimento')->textInput() ?>
+    <?= $form->field($model, 'dt_vencimento')->textInput([]) ?>
 
     <?= $form->field($model, 'dt_pagamento')->textInput() ?>
 

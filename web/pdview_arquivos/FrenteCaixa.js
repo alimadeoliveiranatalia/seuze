@@ -496,52 +496,6 @@ function VerificarBrinde(subtotal)
 				$("#valebrinde_div").addClass("box_visualizar");
 			}
 	}
-function Confirmar()
-	{
-		if($("#id_frente").val())
-			{
-				$.colorbox({
-					href:"FrenteCaixa.Confirmar.php?Venda="+$("#id_frente").val()+"&Valor="+$("#valor_total_produtos").val()+"&obs_pedido="+escape($("#obs_pedido").val())+"&id_operador="+$("#operador_atual").val()+"&nome_operador="+encodeURIComponent($("#nome_operador_atual").val()),
-					title:"CONFIRMA��O DE PAGAMENTO",
-					height:"480px",
-					onComplete:function()
-						{
-							$('#nome_cliente').simpleAutoComplete('/includes/autocomplete/clientes.php',{
-							autoCompleteClassName: 'autocomplete',
-							selectedClassName: 'sel',
-							identifier: 'cliente',
-							},SelecionarCliente);
-							
-							$('#cidade_cliente').simpleAutoComplete('/includes/autocomplete/cidades.php',{
-							autoCompleteClassName: 'autocomplete',
-							selectedClassName: 'sel',
-							identifier: 'cidade',
-							},SelecionarCidade);
-					
-							$(".telefone").mask("(99) 9999-9999?9").keyup(function(event) {
-								var target, phone, element;
-								target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-								phone = target.value.replace(/\D/g, '');
-								if(phone.length > 10) {
-									element = $(target);
-									element.unmask();
-									element.mask("(99) 99999-999?9");
-								} else if(phone.length == 10) {
-									element = $(target);
-									element.unmask();
-									element.mask("(99) 9999-9999?9");  
-								}
-							});
-							
-							xajax_BuscarEstados('uf_cliente');
-						}
-					});
-			}
-		else
-			{
-				alert("Selecione algum pedido!");	
-			}
-	}
 function ConfirmarPedido(Imprimir)
 	{
 		var cpfnanota = false;

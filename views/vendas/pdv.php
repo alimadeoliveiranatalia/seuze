@@ -2,7 +2,14 @@
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
-
+use yii\bootstrap4\Modal;
+Modal::begin([
+    'title' => 'Fechar Venda',
+    'size' => 'modal-xl',
+    'id' => 'modalv'
+]);
+echo"<div id='modalpdv'></div>";
+Modal::end();
 ?>
 <div class="card card-default">		
 	<div class="card-header">
@@ -92,12 +99,20 @@ use yii\widgets\ActiveForm;
 			</table>
 		</div><!--./box-->
 	</div><!--./wrapper-fluid-->
+		
+	<input name="ok" id="ok" value="" type="hidden">
+	<input name="erro" id="erro" value="" type="hidden">
+	<input name="valebrinde" id="valebrinde" value="" type="hidden">
+	<input name="operador_atual" id="operador_atual" value="43860" type="hidden">
+	<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
+	<div id="Layer_Imprimir"></div>
+	<?php ActiveForm::end(); ?>
 	<table border="0" cellpadding="10px" cellspacing="0" width="100%">
 		<tbody>
 			<tr>
 				<td class="subtotal" width="280">
 					SubTotal: <h2 id="subtotal_div">R$ 00,00</h2>
-					<input name="valor_total_produtos" id="valor_total_produtos" value="0" type="hidden">
+					
 				</td>
 				
 				<td width="80">
@@ -106,9 +121,10 @@ use yii\widgets\ActiveForm;
 				<td>
 					<input autocomplete="off" id="obs_pedido" name="obs_pedido" class="input-block" type="text">
 				</td>
-				<td width="120">
-					<button class="button medium green">Confirmar</button>
+				<td>
+					<button class="button medium green" onclick="confirmar();">Confirmar</button>
 				</td>
+				
 				<td width="120">
 					<button class="button medium yellow" onclick="javascript:Aguardar();">Aguardar</button>
 				</td>
@@ -117,13 +133,16 @@ use yii\widgets\ActiveForm;
 				</td>
 			</tr>
 		</tbody>
-	</table>	
-	<input name="ok" id="ok" value="" type="hidden">
-	<input name="erro" id="erro" value="" type="hidden">
-	<input name="valebrinde" id="valebrinde" value="" type="hidden">
-	<input name="operador_atual" id="operador_atual" value="43860" type="hidden">
-	<input name="nome_operador_atual" id="nome_operador_atual" value="silva123" type="hidden">
-	<div id="Layer_Imprimir"></div>
+	</table>
+
+	<?php $form = ActiveForm::begin([
+            'action'=>['vendas/confirmar-venda'],
+			'id'=>'form_p',
+            'method'=>'get',
+           ]);?>
+			 <input name="valor_total_produtos" id="valor_total_produtos" value="0" type="hidden">
+			 	
+			
 	<?php ActiveForm::end(); ?>
 	<div id="qtip-rcontainer"></div>
 	<div style="display: none;" id="cboxOverlay"></div>
@@ -159,6 +178,7 @@ use yii\widgets\ActiveForm;
 <?php 
 use yii\helpers\Url;
 $url=Url::toRoute(['vendas/produto-list'],true);
+$url2=Url::toRoute(['vendas/confirmar-venda'],true);
 	$js = <<< JS
 	
 		function consultarProd(prod){
@@ -207,11 +227,31 @@ $url=Url::toRoute(['vendas/produto-list'],true);
 		
 				$("#item"+nro).show();
 				$("#produtosearch-busca").val('');
-				$("#produtosearch-busca").focus();
-				var temp = document.getElementsByName("ItensDaVenda[quantidade][]");
-				temp[nro].value = 10+nro;
-				alert(temp[nro].value)				
+				$("#produtosearch-busca").focus();		
 			
+		}
+		function confirmar(){
+			var form_data;
+			//form_data = $('#form_p');
+			//var form_data = new FormData($('#form_p')[0]);
+			$.ajax({
+				url:'$url2',
+				data:'total='+$('#valor_total_produtos').val(),
+				type:'get',
+				dataType:'html',
+				success:function(data){
+					$("#modalv").modal('show').find('#modalpdv').html(data);			
+				}
+			});
+		}
+		function debito(){
+			var vr;
+			vr = $("#valor_total_produtos").val(total);
+			total_debito = vr*1.99%+vr;
+		}
+		function credito(){
+			var vr;
+			total_credito = vr*3.03%+vr;
 		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
