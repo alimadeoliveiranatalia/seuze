@@ -244,15 +244,6 @@ $url2=Url::toRoute(['vendas/confirmar-venda'],true);
 				}
 			});
 		}
-		function debito(){
-			var vr;
-			vr = $("#valor_total_produtos").val(total);
-			total_debito = vr*1.99%+vr;
-		}
-		function credito(){
-			var vr;
-			total_credito = vr*3.03%+vr;
-		}
 	JS;
 	$this->registerJs($js,View::POS_HEAD);
 ?>
