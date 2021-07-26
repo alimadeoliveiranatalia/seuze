@@ -140,20 +140,28 @@ $js = <<< JS
 		var total_credito = (compra*0.0303)+compra*1;
         $('#Layer_total').html(total_credito);
 	}
+    $('#valor_recebido').on('change', function(vr){
+        if (vr !=0 && vr !=null){      
+            var compra = $('#capt').val();
+            var vr_receb = $('#valor_recebido').val();
+            troco = vr_receb - compra;
+            console.log('compra = '+compra);
+            console.log('vr_receb = '+vr_receb);
+            $('#Layer_trocoValor').html(troco); 
+        }
+    });
+    $('#desconto').on('change', function(vr){
+        if (vr!=0 && vr!=null){
+            var compra = $('#capt').val();
+            var vr = $('#desconto').val();
+            desconto = compra - vr;
+            $('#Layer_total').html(desconto);
+        }
+    });
     function descontar(){
-        var compra = $('#capt').val();
-        var vr = $('#desconto').val();
-        desconto = compra - vr;
-        $('#Layer_total').html(desconto);
+        
     }
-    function passarTroco(){
-        var compra = $('#capt').val();
-        var vr_receb = $('#valor_recebido').val();
-        troco = vr_receb - compra;
-        console.log('compra = '+compra);
-        console.log('vr_receb = '+vr_receb);
-        $('#Layer_trocoValor').html(troco);
-    }
+    
     function zerotaxa(){
         var compra = $('#capt').val();
         total_t = (compra*0)+compra*1;
