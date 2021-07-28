@@ -133,7 +133,8 @@ $js = <<< JS
     function debito(){
         var compra = $('#capt').val();
 		var total_debito = (compra*0.0199)+compra*1;
-        $('#Layer_total').html(total_debito);
+        total_d_con = Math.ceil(total_debito);
+        $('#Layer_total').html(total_d_con);
 	}
 	function credito(){
         var compra = $('#capt').val();
